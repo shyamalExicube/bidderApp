@@ -50,16 +50,23 @@
       </ion-card> -->
 
       <ion-list>
-        <ion-item *ngFor="let data of projectData; let i=index" (click)="goDetails(data)">
-          <ion-avatar slot="start">
-            <img src="{{data.icon}}"/>
+        <ion-item *ngFor="let data of projectData; let i=index">
+
+          <ion-avatar slot="start"  (click)="goDetails(data)">
+            <img *ngIf="data.from == 'upwork'" src="assets/images/upwork1.png"/>
+            <img *ngIf="data.from == 'freelancer'" src="assets/images/freelancer.png"/>
           </ion-avatar>
-          <ion-label>
+
+          <!-- <ion-avatar slot="start" *ngIf="profileImage == false">
+              <img src="assets/images/freelancer.png"/>
+          </ion-avatar> -->
+
+          <ion-label (click)="goDetails(data)">
             <h2>{{data.name}}</h2>
             <h3>{{data.country}}</h3>
             <p>{{data.summery}}</p>
           </ion-label>
-          <ion-icon name="heart" (click)="addFav()"></ion-icon>
+          <ion-icon name="heart" (click)="addFav(data)"></ion-icon>
         </ion-item>
       </ion-list>
 

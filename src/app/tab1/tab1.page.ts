@@ -11,18 +11,23 @@ import * as firebase from 'firebase'
 })
 export class Tab1Page {
   public projectData:any;
+  public profileImage:boolean=true;
+  public myData:any
  
 
   constructor(private router: Router, public nav:NavController,public navCtrl:NavController){ 
     const projectsList=firebase.database().ref(`projects`);
     projectsList.once('value',snapProjects=>{
-      this.projectData=snapProjects.val();
-      console.log(this.projectData);
+      if(snapProjects.val()){
+        this.projectData=snapProjects.val();
+        console.log(this.projectData);
+      }
     })
   }
 
   goDetails(data){
     console.log(data);
+    this.myData=data;
     data.link = encodeURIComponent(data.link)
     data.icon = encodeURIComponent(data.icon)
     data.pubdate = encodeURIComponent(data.pubdate)
@@ -31,7 +36,11 @@ export class Tab1Page {
     this.nav.navigateForward('/details/'+sendData);
   }
 
-  addFav(){
+  addFav(data){
+    console.log(data);
     console.log("added fav");
-  }
+    
+    firebase.database().ref(`/favorites`).push({data,fav:true});
 }
+}
+
