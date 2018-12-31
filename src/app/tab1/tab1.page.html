@@ -1,13 +1,13 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      Tab One
+     List
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-    <ion-card class="welcome-card">
+    <!-- <ion-card class="welcome-card">
       <ion-img src="/assets/shapes.svg"></ion-img>
       <ion-card-header>
         <ion-card-subtitle>Get Started</ion-card-subtitle>
@@ -16,8 +16,8 @@
       <ion-card-content>
         <p>Now that your app has been created, you'll want to start building out features and components. Check out some of the resources below for next steps.</p>
       </ion-card-content>
-    </ion-card>
-    <ion-list lines="none">
+    </ion-card> -->
+    <!-- <ion-list lines="none">
       <ion-list-header>
         <ion-label>Resources</ion-label>
       </ion-list-header>
@@ -37,5 +37,31 @@
         <ion-icon slot="start" color="medium" name="color-fill"></ion-icon>
         <ion-label>Theme Your App</ion-label>
       </ion-item>
-    </ion-list>
+    </ion-list> -->
+
+    <!-- <ion-card *ngFor="let data of projectData; let i=index">
+        <ion-item (click)="goDetails(data)"> 
+          <ion-avatar item-start>
+            <img src="{{data.icon}}">
+          </ion-avatar>
+          <p>{{data.name}}</p>
+          <ion-icon name="heart" style="color:brown;zoom:2" item-right></ion-icon>
+        </ion-item>
+      </ion-card> -->
+
+      <ion-list>
+        <ion-item *ngFor="let data of projectData; let i=index" (click)="goDetails(data)">
+          <ion-avatar slot="start">
+            <img src="{{data.icon}}"/>
+          </ion-avatar>
+          <ion-label>
+            <h2>{{data.name}}</h2>
+            <h3>{{data.country}}</h3>
+            <p>{{data.summery}}</p>
+          </ion-label>
+          <ion-icon name="heart" (click)="addFav()"></ion-icon>
+        </ion-item>
+      </ion-list>
+
+
 </ion-content>

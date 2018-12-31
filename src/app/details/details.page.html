@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Description</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding class="content">
+  <!-- <ion-card>
+    <ion-card-header>
+      {{projectDetails.name}}
+    </ion-card-header>
+    <ion-card-content>
+      {{projectDetails.summery}}
+    </ion-card-content>
+  </ion-card> -->
+
+  <ion-card>
+      <ion-card-header>
+        <!-- <ion-card-subtitle>Card Subtitle</ion-card-subtitle> -->
+        <img src="{{projectDetails.icon}}"/>
+        <ion-card-title>{{projectDetails.name}}</ion-card-title>
+      </ion-card-header>
+    
+      <ion-card-content>
+       {{projectDetails.summery}}
+      </ion-card-content>
+    </ion-card>
+    <ion-button color="secondary" (click)="bid()">Bid</ion-button>
+
+
+</ion-content>
