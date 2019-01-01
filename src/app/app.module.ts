@@ -11,7 +11,8 @@ import { AppComponent } from './app.component';
 
 import { NgReduxModule } from '@angular-redux/store';
 import { HttpModule } from '@angular/http';
-import { StoreModule } from 'src/redux/store/all_module';
+import { StoreModule } from 'src/redux/store/all_module'
+import { AddOptionsPageModule } from './add-options/add-options.module';
 
 
 
@@ -24,7 +25,8 @@ import { StoreModule } from 'src/redux/store/all_module';
     AppRoutingModule,
     NgReduxModule,
     StoreModule,
-    HttpModule
+    HttpModule,
+    AddOptionsPageModule
   ],
   providers: [
     StatusBar,

@@ -1,8 +1,9 @@
 import { Action } from 'redux';
 import { ProfileActions } from '../actions/profile_actions';
-import { ProfileData } from '../core/profile_session';
-const INITIAL_STATE: ProfileData = {
-  profiledata: null,
+import { FavoriteData } from '../core/favorite_session';
+import { FavoriteActions } from '../actions/favorite_actions';
+const INITIAL_STATE: FavoriteData = {
+  favoritedata: null,
   loading: false,
   error: "",
 };
@@ -15,26 +16,26 @@ export interface ActionWithPayload<T,E> extends Action {
   error?:E;
 } 
 
-export function ProfileReducer(state: ProfileData = INITIAL_STATE, action: ActionWithPayload<Payload,Error>): ProfileData {
+export function FavoriteReducer(state: FavoriteData = INITIAL_STATE, action: ActionWithPayload<Payload,Error>): FavoriteData {
   switch (action.type) {
-    case ProfileActions.PROFILE_FETCH:
+    case FavoriteActions.FAVORITE_FETCH:
       return {
         ...state,
-        profiledata: null,
+        favoritedata: null,
         loading: true,
         error: "",
       };
-    case ProfileActions.PROFILE_FETCH_SUCCESS:
+    case FavoriteActions.FAVORITE_FETCH_SUCCESS:
       return {
         ...state,
-        profiledata: action.payload,
+        favoritedata: action.payload,
         loading: false,
         error: "",
       };
-    case ProfileActions.PROFILE_FETCH_FAILED:
+    case FavoriteActions.FAVORITE_FETCH_FAILED:
       return {
         ...state,
-        profiledata: null,
+        favoritedata: null,
         loading: false,
         error: action.error,
       };

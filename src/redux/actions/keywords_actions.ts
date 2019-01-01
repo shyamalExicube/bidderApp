@@ -1,38 +1,38 @@
 import { Injectable } from '@angular/core';
 import { NgRedux } from '@angular-redux/store';
 import { IAppState } from '../core/store_modal';
-import { ProfileData } from '../core/profile_session';
+import { KeywordData } from '../core/keywords_session';
 
 @Injectable()
-export class ProfileActions {
+export class KeywordActions {
 
-  static PROFILE_FETCH = 'PROFILE_FETCH';
-  static PROFILE_FETCH_SUCCESS = 'PROFILE_FETCH_SUCCESS';
-  static PROFILE_FETCH_FAILED = 'PROFILE_FETCH_FAILED';
+  static KEYWORD_FETCH = 'KEYWORD_FETCH';
+  static KEYWORD_FETCH_SUCCESS = 'KEYWORD_FETCH_SUCCESS';
+  static KEYWORD_FETCH_FAILED = 'KEYWORD_FETCH_FAILED';
 
   constructor(private ngRedux: NgRedux<IAppState>) {}
 
-  fetchProfile() {
+  fetchKeyword() {
     this.ngRedux.dispatch({
-      type: ProfileActions.PROFILE_FETCH,
+      type: KeywordActions.KEYWORD_FETCH,
       payload: "null"
     });
   };
 
-  ProfileFetchSuccess(payload:ProfileData) {
+  KeywordFetchSuccess(payload:KeywordData) {
     console.log("hello");
     console.log(payload);
     
     this.ngRedux.dispatch({
-      type: ProfileActions.PROFILE_FETCH_SUCCESS,
+      type: KeywordActions.KEYWORD_FETCH_SUCCESS,
       payload: payload,
     });
   };
 
-  ProfileFetchFailed(error) {
+  KeywordFetchFailed(error) {
     console.log(error);
     this.ngRedux.dispatch({
-      type: ProfileActions.PROFILE_FETCH_FAILED,
+      type: KeywordActions.KEYWORD_FETCH_FAILED,
       error:error
     });
   };

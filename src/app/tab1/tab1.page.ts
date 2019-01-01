@@ -3,6 +3,9 @@ import { NavController } from '@ionic/angular';
 import { DetailsPage } from '../details/details.page';
 import { RouterModule, Router } from '@angular/router';
 import * as firebase from 'firebase'
+import { ProfileActions } from 'src/redux/actions/profile_actions';
+import { select } from '@angular-redux/store';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-tab1',
@@ -10,19 +13,38 @@ import * as firebase from 'firebase'
   styleUrls: ['tab1.page.scss']
 })
 export class Tab1Page {
+
+  @select(['profileData', 'profiledata'])
+  readonly profiledata$: Observable<any>;
+
+
+
   public projectData:any;
   public profileImage:boolean=true;
-  public myData:any
- 
+  public myData:any;
+  // public favo:boolean=true;
+  public sendData:any
 
-  constructor(private router: Router, public nav:NavController,public navCtrl:NavController){ 
-    const projectsList=firebase.database().ref(`projects`);
-    projectsList.once('value',snapProjects=>{
-      if(snapProjects.val()){
-        this.projectData=snapProjects.val();
-        console.log(this.projectData);
+  constructor(
+    private router: Router, 
+    public nav:NavController,
+    public navCtrl:NavController,
+    public profileActions:ProfileActions
+    ){ 
+    // const projectsList=firebase.database().ref(`projects`);
+    // projectsList.once('value',snapProjects=>{
+    //   if(snapProjects.val()){
+    //     this.projectData=snapProjects.val();
+    //     console.log(this.projectData);
+    //   }
+    // })
+     this.profileActions.fetchProfile();
+     let sub = this.profiledata$.subscribe((res)=>{
+      if(res){ 
+        console.log(res);
+        this.projectData=res;
       }
-    })
+    });
   }
 
   goDetails(data){
@@ -32,15 +54,19 @@ export class Tab1Page {
     data.icon = encodeURIComponent(data.icon)
     data.pubdate = encodeURIComponent(data.pubdate)
     console.log(data.icon);
-    let sendData = JSON.stringify(data);
-    this.nav.navigateForward('/details/'+sendData);
+    this.sendData = JSON.stringify(data);
+    this.nav.navigateForward('/details/'+this.sendData);
   }
 
   addFav(data){
     console.log(data);
-    console.log("added fav");
-    
-    firebase.database().ref(`/favorites`).push({data,fav:true});
+    if(data.fav == true){
+      alert("you have alrady added to fav");
+    }else{
+      data.fav = true
+      console.log("added fav"+data);
+      firebase.database().ref(`/favorites`).push(data);
+    }
 }
 }
 

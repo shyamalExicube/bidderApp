@@ -6,42 +6,31 @@ import { createLogger } from 'redux-logger';
 import { RootEpics } from './epic_module';
 import { IAppState } from '../core/store_modal';
 import { rootReducer } from './reducer_module';
-// import { IAppState } from '../core/store_modal';
-// import { RootEpics } from './epic_module';
-// import { rootReducer } from './reducer_module';
 
 //actions
-// import { LoginActions } from '../actions/login_action';
-// import {TimeTableActions} from '../actions/time_table_schedule';
-// import { ProgramScheduleActions } from '../actions/program_schedule';
+import { ProfileActions } from '../actions/profile_actions';
 
 //epics
-// import { LoginEpics } from '../epics/login_epic';
-// import { ProgramScheduleEpics } from '../epics/program_schedule_epic';
-// import { ContactActions } from '../actions/contact_action';
-// import { ContactEpics } from '../epics/contact_epic';
-// import { GalleryActions } from '../actions/gallery_action';
-// import { GalleryEpics } from '../epics/gallery_epic';
-// import { TimeTableActions } from '../actions/time_table_schedule';
-// import { TimeTableEpics } from '../epics/time_table_epic';
+import { ProfileEpics } from '../epics/profile_epic';
+import { FavoriteActions } from '../actions/favorite_actions';
+import { FavoriteEpics } from '../epics/favorite_epic';
+import { KeywordActions } from '../actions/keywords_actions';
+import { KeywordEpics } from '../epics/keywords_epic';
 
 @NgModule({
   providers: [
     RootEpics,
     //actions
-    // LoginActions,
-    // ContactActions,
-    // TimeTableActions,
-    // ProgramScheduleActions,
-    // GalleryActions,
+    ProfileActions,
+    FavoriteActions,
+    KeywordActions,
+
     
 
     //epics
-    // LoginEpics,
-    // ContactEpics,
-    // GalleryEpics,
-    // TimeTableEpics,
-    // ProgramScheduleEpics
+    ProfileEpics,
+    FavoriteEpics,
+    KeywordEpics
   ]
 })
 

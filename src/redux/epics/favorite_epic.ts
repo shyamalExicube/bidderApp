@@ -13,15 +13,17 @@ import { ActionsObservable } from 'redux-observable';
 import { Observable } from 'rxjs';
 import 'rxjs';
 import * as firebase from 'firebase'
+import { FavoriteActions } from '../actions/favorite_actions';
 
 @Injectable()   
-export class ProfileEpics {
-    public projectData:any
-  constructor(private http: Http ,public profileaction:ProfileActions) {}
+export class FavoriteEpics {
+public projectData:any;
+public favoriteData:any=[];
+constructor(private http: Http ,public favoriteaction:FavoriteActions) {}
 
  //http://www.mocky.io/v2/5ad9e9312f00005e00cfe010
-  profile = (action$: ActionsObservable<any>) => {
-    return action$.ofType(ProfileActions.PROFILE_FETCH)
+  favorite = (action$: ActionsObservable<any>) => {
+    return action$.ofType(FavoriteActions.FAVORITE_FETCH)
       .mergeMap(({payload}) => {
           console.log(payload)
         return new Observable(() => {
@@ -38,14 +40,20 @@ export class ProfileEpics {
         //          this.profileaction.ProfileFetchFailed("API error/ Network error"); 
         //         }
         //   })
-        const projectsList=firebase.database().ref(`projects`);
+        const projectsList=firebase.database().ref(`favorites`);
         projectsList.once('value',snapProjects=>{
           if(snapProjects.val()){
             this.projectData=snapProjects.val();
-            this.profileaction.ProfileFetchSuccess(this.projectData);
-            console.log(this.projectData);
+            for(let key in this.projectData){
+                this.projectData[key].id=key
+                 console.log(this.projectData[key]);
+                 this.favoriteData.push(this.projectData[key]);
+                 console.log(this.favoriteData);
+            }
+            this.favoriteaction.FavoriteFetchSuccess(this.favoriteData);
+            console.log(this.favoriteData);
           }else{
-            this.profileaction.ProfileFetchFailed("API error/ Network error"); 
+            this.favoriteaction.FavoriteFetchFailed("API error/ Network error"); 
           }
         })
 

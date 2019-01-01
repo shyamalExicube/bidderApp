@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>AddOptions</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+    <button (click)="close()">Close</button>
+    <h1>Positive:</h1>
+    <ion-item>
+      <ion-input [(ngModel)]="positiveKey"></ion-input>
+    </ion-item>
+    <ion-button (click)="addPositive()">Submit</ion-button>
+
+
+    <h1>Negative:</h1>
+    <ion-item>
+      <ion-input [(ngModel)]="negativeKey"></ion-input>
+    </ion-item>
+    <ion-button (click)="addNegative()">Submit</ion-button>
+
+    <!-- <h1>Negative:</h1> -->
+</ion-content>
