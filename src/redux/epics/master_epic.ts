@@ -13,15 +13,16 @@ import { ActionsObservable } from 'redux-observable';
 import { Observable } from 'rxjs';
 import 'rxjs';
 import * as firebase from 'firebase'
+import { MasterActions } from '../actions/master_actions';
 
 @Injectable()   
-export class ProfileEpics {
+export class MasterEpics {
     public projectData:any
-  constructor(private http: Http ,public profileaction:ProfileActions) {}
+  constructor(private http: Http ,public masteraction:MasterActions) {}
 
  //http://www.mocky.io/v2/5ad9e9312f00005e00cfe010
-  profile = (action$: ActionsObservable<any>) => {
-    return action$.ofType(ProfileActions.PROFILE_FETCH)
+  master = (action$: ActionsObservable<any>) => {
+    return action$.ofType(MasterActions.MASTER_FETCH)
       .mergeMap(({payload}) => {
           console.log(payload)
         return new Observable(() => {
@@ -38,14 +39,14 @@ export class ProfileEpics {
         //          this.profileaction.ProfileFetchFailed("API error/ Network error"); 
         //         }
         //   })
-        const projectsList=firebase.database().ref(`/entries`);
+        const projectsList=firebase.database().ref();
         projectsList.once('value',snapProjects=>{
           if(snapProjects.val()){
             this.projectData=snapProjects.val();
-            this.profileaction.ProfileFetchSuccess(this.projectData);
+            this.masteraction.MasterFetchSuccess(this.projectData);
             console.log(this.projectData);
           }else{
-            this.profileaction.ProfileFetchFailed("API error/ Network error"); 
+            this.masteraction.MasterFetchFailed("API error/ Network error"); 
           }
         })
 

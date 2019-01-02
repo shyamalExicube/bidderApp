@@ -31,13 +31,13 @@ constructor(private http: Http ,public keywordaction:KeywordActions) {}
         const Keywords=firebase.database().ref(`keywords`);
         Keywords.once('value',snapKey=>{
             console.log(snapKey.val());
-        //   if(snapKey.val()){
-        //     this.keywordData=snapKey.val();
-        //     this.keywordaction.KeywordFetchSuccess(this.keywordData);
-        //     console.log(this.keywordData);
-        //   }else{
-        //     this.keywordaction.KeywordFetchFailed("API error/ Network error"); 
-        //   }
+          if(snapKey.val()){
+            this.keywordData=snapKey.val();
+            this.keywordaction.KeywordFetchSuccess(this.keywordData);
+            console.log(this.keywordData);
+          }else{
+            this.keywordaction.KeywordFetchFailed("API error/ Network error"); 
+          }
         })
 
         })

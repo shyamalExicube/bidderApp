@@ -13,7 +13,31 @@ import { NgReduxModule } from '@angular-redux/store';
 import { HttpModule } from '@angular/http';
 import { StoreModule } from 'src/redux/store/all_module'
 import { AddOptionsPageModule } from './add-options/add-options.module';
+import * as firebase from 'firebase'
 
+
+
+
+
+// var config = {
+//   apiKey: "AIzaSyCFw6romw9UJL88CwF3GHzvaZ1Xglf5bo0",
+//   authDomain: "comingprojects-7a21b.firebaseapp.com",
+//   databaseURL: "https://comingprojects-7a21b.firebaseio.com",
+//   projectId: "comingprojects-7a21b",
+//   storageBucket: "comingprojects-7a21b.appspot.com",
+//   messagingSenderId: "244910667822"
+// };
+// firebase.initializeApp(config);
+
+var config = {
+  apiKey: "AIzaSyALML5rY-J9_ZR80Ut63yOWUC04jwRACsk",
+  authDomain: "atbidder.firebaseapp.com",
+  databaseURL: "https://atbidder.firebaseio.com",
+  projectId: "atbidder",
+  storageBucket: "atbidder.appspot.com",
+  messagingSenderId: "459901499641"
+};
+firebase.initializeApp(config);
 
 
 @NgModule({

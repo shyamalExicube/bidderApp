@@ -8,21 +8,22 @@
 
 <ion-content>
   <ion-list>
-    <ion-item *ngFor="let data of favoriteData; let i=index">
+    <ion-item *ngFor="let data of myFav; let i=index">
 
       <ion-avatar slot="start">
-        <img *ngIf="data.from == 'upwork'" src="assets/images/upwork1.png"/>
-        <img *ngIf="data.from == 'freelancer'" src="assets/images/freelancer.png"/>
+        <img *ngIf="data.source == 'Upwork'" src="assets/images/upwork1.png"/>
+        <img *ngIf="data.source == 'Freelancer'" src="assets/images/freelancer.png"/>
       </ion-avatar>
 
       <!-- <ion-avatar slot="start" *ngIf="profileImage == false">
           <img src="assets/images/freelancer.png"/>
       </ion-avatar> -->
 
-      <ion-label (click)="goDetails(data)">
-        <h2>{{data.name}}</h2>
-        <h3>{{data.country}}</h3>
-        <p>{{data.summery}}</p>
+      <ion-label (click)="goDetails(i)">
+        <h2>{{data.title}}</h2>
+        <h3>{{data.source}}</h3>
+        <p>{{data.dated}}</p>
+        <p>{{data.description}}</p>
       </ion-label>
     </ion-item>
   </ion-list>

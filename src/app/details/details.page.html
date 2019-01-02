@@ -16,18 +16,17 @@
 
   <ion-card>
       <ion-card-header>
-        <!-- <ion-card-subtitle>Card Subtitle</ion-card-subtitle> -->
-        <img src="{{projectDetails.icon}}"/>
-        <ion-card-title>{{projectDetails.name}}</ion-card-title>
+        <img *ngIf="totalData.source == 'Upwork'" src="assets/images/upwork1.png"/>
+        <img *ngIf="totalData.source == 'Freelancer'" src="assets/images/freelancer.png"/>
+
+        <ion-card-title>{{totalData.title}}</ion-card-title>
       </ion-card-header>
     
       <ion-card-content>
-       {{projectDetails.summery}}
+       {{totalData.description}}
       </ion-card-content>
-      <h4>Author:{{projectDetails.author}}</h4>
-      <h4>Publish Date:{{projectDetails.pubdate}}</h4>
-      <h4>Price:{{projectDetails.price}}</h4>
-      <h4>Country:{{projectDetails.country}}</h4>
+      <h4>Publish Date:{{totalData.dated}}</h4>
+      <h4>Source:{{totalData.source}}</h4>
     </ion-card>
     <ion-button color="secondary" (click)="bid()">Bid</ion-button>
 </ion-content>

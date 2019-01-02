@@ -16,6 +16,8 @@ import { FavoriteActions } from '../actions/favorite_actions';
 import { FavoriteEpics } from '../epics/favorite_epic';
 import { KeywordActions } from '../actions/keywords_actions';
 import { KeywordEpics } from '../epics/keywords_epic';
+import { MasterActions } from '../actions/master_actions';
+import { MasterEpics } from '../epics/master_epic';
 
 @NgModule({
   providers: [
@@ -24,13 +26,15 @@ import { KeywordEpics } from '../epics/keywords_epic';
     ProfileActions,
     FavoriteActions,
     KeywordActions,
+    MasterActions,
 
     
 
     //epics
     ProfileEpics,
     FavoriteEpics,
-    KeywordEpics
+    KeywordEpics,
+    MasterEpics
   ]
 })
 

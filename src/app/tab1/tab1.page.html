@@ -50,23 +50,20 @@
       </ion-card> -->
 
       <ion-list>
-        <ion-item *ngFor="let data of projectData; let i=index">
+        <ion-item *ngFor="let data of totalData; let i=index">
 
-          <ion-avatar slot="start"  (click)="goDetails(data)">
-            <img *ngIf="data.from == 'upwork'" src="assets/images/upwork1.png"/>
-            <img *ngIf="data.from == 'freelancer'" src="assets/images/freelancer.png"/>
+          <ion-avatar slot="start"  (click)="goDetails(i)">
+            <img *ngIf="data.source == 'Upwork'" src="assets/images/upwork1.png"/>
+            <img *ngIf="data.source == 'Freelancer'" src="assets/images/freelancer.png"/>
           </ion-avatar>
 
-          <!-- <ion-avatar slot="start" *ngIf="profileImage == false">
-              <img src="assets/images/freelancer.png"/>
-          </ion-avatar> -->
-
-          <ion-label (click)="goDetails(data)">
-            <h2>{{data.name}}</h2>
-            <h3>{{data.country}}</h3>
-            <p>{{data.summery}}</p>
+          <ion-label (click)="goDetails(i)">
+            <h2>{{data.title}}</h2>
+            <!-- <h3>{{data.country}}</h3> -->
+            <p>{{data.description}}</p>
           </ion-label>
-          <ion-icon name="heart" (click)="addFav(data)"></ion-icon>
+          <ion-icon name="heart" (click)="addFav(data,i)" *ngIf='!data.fav'></ion-icon>
+          <ion-icon name="heart" style="color:red"  *ngIf='data.fav' ></ion-icon>
         </ion-item>
       </ion-list>
 

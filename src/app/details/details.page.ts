@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { MasterActions } from 'src/redux/actions/master_actions';
+import { Observable } from 'rxjs';
+import { select } from '@angular-redux/store';
 
 @Component({
   selector: 'app-details',
@@ -7,22 +10,30 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./details.page.scss'],
 })
 export class DetailsPage implements OnInit {
-  public projectDetails:any
+  public projectDetails:any;
+  public totalData:any;
+  public paramdata:any;
+  public sub
 
-  constructor(public route:ActivatedRoute) { 
-    let paramdata = this.route.snapshot.paramMap.get('id');
-    if(paramdata != undefined){
-      console.log(paramdata)
-      console.log(JSON.parse(paramdata))
-      this.projectDetails=JSON.parse(paramdata)
-    }
-    
+  @select(['masterData', 'masterdata'])
+  readonly masterdata$: Observable<any>;
 
+  constructor(public route:ActivatedRoute,
+    public masterAction:MasterActions) { 
   }
 
   ngOnInit() {
-    // let dataaa = this.navparam.get('datan');
-    // console.log(dataaa);
+    this.masterAction.fetchMaster();
+    this.sub = this.masterdata$.subscribe((res)=>{
+      if(res){ 
+        let result = res;
+        if(this.route.snapshot.paramMap.get('id') != undefined){
+          let getid = this.route.snapshot.paramMap.get('id');
+          this.totalData=result.entries[getid];
+          console.log(this.totalData);
+        }
+      }
+    });
   }
   bid(){
     console.log("bidded");

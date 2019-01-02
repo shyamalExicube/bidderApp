@@ -4,17 +4,11 @@ import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import * as firebase from 'firebase'
+import { select } from '@angular-redux/store';
+import { Observable } from 'rxjs';
+import { MasterActions } from 'src/redux/actions/master_actions';
 
 
-var config = {
-  apiKey: "AIzaSyCFw6romw9UJL88CwF3GHzvaZ1Xglf5bo0",
-  authDomain: "comingprojects-7a21b.firebaseapp.com",
-  databaseURL: "https://comingprojects-7a21b.firebaseio.com",
-  projectId: "comingprojects-7a21b",
-  storageBucket: "comingprojects-7a21b.appspot.com",
-  messagingSenderId: "244910667822"
-};
-firebase.initializeApp(config);
 
 
 @Component({
@@ -22,12 +16,50 @@ firebase.initializeApp(config);
   templateUrl: 'app.component.html'
 })
 export class AppComponent {
+  email:"contact@exicube.com";
+  password:"Linkin9*";
+  public masterdata:any
+  
+  @select(['masterData', 'masterdata'])
+  readonly masterdata$: Observable<any>;
+
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
-    private statusBar: StatusBar
+    private statusBar: StatusBar,
+    public masterAction:MasterActions
   ) {
     this.initializeApp();
+     this.authentication()
+  }
+  authentication(){
+    firebase.auth().onAuthStateChanged((user)=>{
+      if(user){
+          // alert("found");
+          this.masterAction.fetchMaster();
+            let sub = this.masterdata$.subscribe((res)=>{
+              if(res){ 
+                console.log(res);
+                this.masterdata=res;   
+              }
+            });
+      }else{
+        firebase.auth().signInWithEmailAndPassword(this.email,this.password).then((res)=>{
+          if(res){
+            console.log(res);
+            this.masterAction.fetchMaster();
+            let sub = this.masterdata$.subscribe((res)=>{
+              if(res){ 
+                console.log(res);
+                this.masterdata=res;   
+              }
+            });
+          }
+        }).catch((error)=>{
+          alert(error.message);
+        });
+      }
+    })
   }
 
   initializeApp() {
