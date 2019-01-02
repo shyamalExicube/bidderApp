@@ -8,15 +8,11 @@
 
 <!-- List of Text Items -->
 <ion-list>
-    <ion-item>
-        <p>Rishabh Pant turns 'baby-sitter' for Paine's kids</p>
+    <ion-item *ngFor="let data of templateData;let i=index">
+      <h1>{{data.name}}</h1>
+        <p>{{data.description}}</p>
     </ion-item>
-    <ion-item>
-          <p>Jasprit Bumrah has proved me wrong: Kapil Dev</p>
-    </ion-item>
-    <ion-item>
-        <p>Prakash Raj will contest 2019 Lok Sabha </p>
-      </ion-item>
+    
   </ion-list>
 
 

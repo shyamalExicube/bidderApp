@@ -4,6 +4,7 @@ import * as firebase from 'firebase'
 import { select } from '@angular-redux/store';
 import { Observable } from 'rxjs';
 import { KeywordActions } from 'src/redux/actions/keywords_actions';
+import { MasterActions } from 'src/redux/actions/master_actions';
 
 @Component({
   selector: 'app-add-options',
@@ -21,15 +22,17 @@ export class AddOptionsPage implements OnInit {
   public positiveInputs:any=[];
   public input:boolean=true
 
-  @select(['keywordData', 'keyworddata'])
-  readonly keyworddata$: Observable<any>;
+  @select(['masterData', 'masterdata'])
+  readonly masterdata$: Observable<any>;
 
 
-  constructor(public modalCtrl:ModalController,public keywordActions:KeywordActions) { 
-    // this.keywordActions.fetchKeyword();
-    let sub = this.keyworddata$.subscribe((res)=>{
+  constructor(public modalCtrl:ModalController,public keywordActions:KeywordActions,
+    public masterActions:MasterActions) { 
+    this.masterActions.fetchMaster();
+    let sub = this.masterdata$.subscribe((res)=>{
      if(res){ 
-       this.keywords=res;   
+       console.log(res);
+       this.keywords=res.keywords;   
      }
    });
 
@@ -44,14 +47,27 @@ export class AddOptionsPage implements OnInit {
     if(this.positiveKey == '' || this.positiveKey == undefined || this.positiveKey == null){
       alert("PositiveKey field can not be blanked");
     }else{
-      firebase.database().ref(`keywords/`+`positiveKewwords`).push({
-        option:this.positiveKey
-      }).then(()=>{
-        alert("Successfully added");
-        this.positiveKey=null;
-      }).then(()=>{
-        this.modalCtrl.dismiss();
-      });
+      var found = true;
+      let positiveKeys= this.keywords.positive
+      console.log(positiveKeys);
+      console.log(positiveKeys.length);
+      for(var i=0;i<positiveKeys.length;i++){
+        if(positiveKeys[i] == this.positiveKey){
+           found =false;      
+            break;
+        }else{
+            found= true;
+        }
+      }
+      if(found){
+        // alert("found");
+        firebase.database().ref(`keywords/positive/`+ positiveKeys.length).set(this.positiveKey).then((res)=>{
+           alert("added positive key");
+        })
+      }else{
+        alert("already added");
+      }
+      
     }
   }
 
@@ -59,12 +75,27 @@ export class AddOptionsPage implements OnInit {
     if(this.negativeKey == '' || this.negativeKey == undefined || this.negativeKey == null){
       alert("negativeKey field can not be blanked");
     }else{
-      firebase.database().ref(`keywords/`+`negativeKewwords`).push({
-        option:this.negativeKey
-      }).then(()=>{
-        alert("Successfully added");
-        this.negativeKey=null;
-      });
+      var found = true;
+      let negativeKeys= this.keywords.negative
+      console.log(negativeKeys);
+      console.log(negativeKeys.length);
+      for(var i=0;i<negativeKeys.length;i++){
+        if(negativeKeys[i] == this.negativeKey){
+           found =false;      
+            break;
+        }else{
+            found= true;
+        }
+      }
+      if(found){
+        // alert("found");
+        firebase.database().ref(`keywords/negative/`+ negativeKeys.length).set(this.negativeKey).then((res)=>{
+           alert("added negative key");
+        })
+      }else{
+        alert("already added");
+      }
+      
     }
   }
 
