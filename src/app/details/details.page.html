@@ -1,19 +1,13 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Description</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Details</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding class="content">
-  <!-- <ion-card>
-    <ion-card-header>
-      {{projectDetails.name}}
-    </ion-card-header>
-    <ion-card-content>
-      {{projectDetails.summery}}
-    </ion-card-content>
-  </ion-card> -->
-
   <ion-card>
       <ion-card-header>
         <img *ngIf="totalData.source == 'Upwork'" src="assets/images/upwork1.png"/>

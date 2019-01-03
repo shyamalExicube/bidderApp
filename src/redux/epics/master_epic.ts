@@ -26,21 +26,8 @@ export class MasterEpics {
       .mergeMap(({payload}) => {
           console.log(payload)
         return new Observable(() => {
-        //   let headers = new Headers ({ 'Content-Type': 'application/x-www-form-urlencoded' });
-        //   let options = new RequestOptions({ headers: headers });
-        //   this.http.get("http://77.104.162.183/~alrayya3/alrayyan.tv/wp-json/tvapi/v2/gellary/",options)
-        //   .subscribe((data)=>{
-        //       console.log(data);
-        //     let result = data.json();
-        //     if(data.statusText == "OK"){
-        //         this.profileaction.ProfileFetchSuccess(result);
-        //     }
-        //     else{
-        //          this.profileaction.ProfileFetchFailed("API error/ Network error"); 
-        //         }
-        //   })
         const projectsList=firebase.database().ref();
-        projectsList.once('value',snapProjects=>{
+        projectsList.on('value',snapProjects=>{
           if(snapProjects.val()){
             this.projectData=snapProjects.val();
             this.masteraction.MasterFetchSuccess(this.projectData);

@@ -7,18 +7,13 @@
 </ion-header>
 
 <ion-content>
-  <ion-list>
+    <h1 *ngIf="dataFound == false">There is no favorite Data</h1>
+  <ion-list *ngIf="dataFound">
     <ion-item *ngFor="let data of myFav; let i=index">
-
       <ion-avatar slot="start">
         <img *ngIf="data.source == 'Upwork'" src="assets/images/upwork1.png"/>
         <img *ngIf="data.source == 'Freelancer'" src="assets/images/freelancer.png"/>
       </ion-avatar>
-
-      <!-- <ion-avatar slot="start" *ngIf="profileImage == false">
-          <img src="assets/images/freelancer.png"/>
-      </ion-avatar> -->
-
       <ion-label (click)="goDetails(i)">
         <h2>{{data.title}}</h2>
         <h3>{{data.source}}</h3>

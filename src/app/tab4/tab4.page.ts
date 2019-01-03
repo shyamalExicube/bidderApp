@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { select } from '@angular-redux/store';
 import { Observable } from 'rxjs';
 import { MasterActions } from 'src/redux/actions/master_actions';
+import * as firebase from 'firebase'
+import { ModalController } from '@ionic/angular';
+import { TemplateEditPage } from '../template-edit/template-edit.page';
+import { AddtemplatePage } from '../addtemplate/addtemplate.page';
 
 @Component({
   selector: 'app-tab4',
@@ -10,23 +14,27 @@ import { MasterActions } from 'src/redux/actions/master_actions';
 })
 export class Tab4Page implements OnInit {
   public templates:any;
-  public template1:any;
-  public template2:any;
-  public templateData:any=[]
+  public templateData:any;
+  public description:any;
+  public name:any
 
   @select(['masterData', 'masterdata'])
   readonly masterdata$: Observable<any>;
 
-  constructor(public masterActions:MasterActions) { 
-
+  constructor(
+    public masterActions:MasterActions,
+    public modalController:ModalController
+    ) { 
     this.masterActions.fetchMaster();
     let sub = this.masterdata$.subscribe((res)=>{
      if(res){ 
        console.log(res);
        this.templates=res.bid_template;
        console.log(this.templates);
+       this.templateData=[];
        for(let key in this.templates){
          console.log(this.templates[key]);
+         this.templates[key].id=key;
          this.templateData.push(this.templates[key])
           console.log(this.templateData);
        }
@@ -37,8 +45,25 @@ export class Tab4Page implements OnInit {
    });
 
   }
+  async edit(data){
+    console.log(data);
+
+    const modal = await this.modalController.create({
+      component: TemplateEditPage,
+      componentProps: { value: data },
+      cssClass : "modalPage"
+    });
+    return await modal.present();
+  }
 
   ngOnInit() {
   }
-
+  async presentModal(){
+    const modal = await this.modalController.create({
+      component: AddtemplatePage,
+      // componentProps: { value: data },
+      cssClass : "modalPage"
+    });
+    return await modal.present();
+  }
 }

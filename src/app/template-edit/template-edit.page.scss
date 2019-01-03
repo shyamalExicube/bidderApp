@@ -1,0 +1,26 @@
+app-template-edit{
+    .templateContent{
+        background: rgba(0, 0, 0, 0.3);
+        .inner-scroll{
+            background: rgba(0, 0, 0, 0.3);
+        }
+        .mainDiv{
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            .childDiv{
+                width: 100%;
+                ion-card{
+                    width: 90%;
+                    margin: 0px auto;
+                    display: block;
+                    box-shadow: none;
+                    background: #fff;
+                    
+                }
+            }
+        }
+    }
+}

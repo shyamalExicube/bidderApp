@@ -7,6 +7,7 @@ import { ProfileActions } from 'src/redux/actions/profile_actions';
 import { select } from '@angular-redux/store';
 import { Observable } from 'rxjs/Observable';
 import { MasterActions } from 'src/redux/actions/master_actions';
+import { AlertControllerService } from '../alert-controller.service';
 
 @Component({
   selector: 'app-tab1',
@@ -33,7 +34,8 @@ export class Tab1Page {
     public nav:NavController,
     public navCtrl:NavController,
     public profileActions:ProfileActions,
-    public masterAction:MasterActions
+    public masterAction:MasterActions,
+    public toastControl:AlertControllerService
     ){ 
     //  this.profileActions.fetchProfile();
     //  let sub = this.profiledata$.subscribe((res)=>{
@@ -56,34 +58,21 @@ export class Tab1Page {
 
   goDetails(i){
     console.log(i);
-    // this.myData=data;
-    // data.link = encodeURIComponent(data.link)
-    // data.icon = encodeURIComponent(data.icon)
-    // data.dated = encodeURIComponent(data.dated);
-    // data.description = data.description.toString();
-    // data.description = encodeURIComponent(data.description);
-    //  console.log(data.description);
-
-    // this.sendData = JSON.stringify(data);
-
     this.nav.navigateForward('/details/'+i);
   }
 
   addFav(data,i){
-    console.log(data);
-    console.log(i);
-    console.log(this.totalData[i]);
     if(data.fav == true){
-      alert("you have alrady added to fav");
+      this.toastControl.openToast("you have alrady added to fav",1500);
     }else{
       data.fav = true;
-      this.totalData[i].fav = true;
+      // this.totalData[i].fav = true;
       console.log("added fav"+data);
       firebase.database().ref(`/favorites/`).push(data).then(()=>{
-        firebase.database().ref(`/entries/` +i).update({
-          fav:this.totalData[i].fav
+        firebase.database().ref(`/entries/` +i+`/`).update({
+          fav:true
         })
-        alert("added to fav");
+        this.toastControl.openToast("Added to fav",1500);
       });
     }
 }

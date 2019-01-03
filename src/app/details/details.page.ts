@@ -20,20 +20,26 @@ export class DetailsPage implements OnInit {
 
   constructor(public route:ActivatedRoute,
     public masterAction:MasterActions) { 
+      this.masterAction.fetchMaster();
+      this.sub = this.masterdata$.subscribe((res)=>{
+        if(res){ 
+          let result = res;
+          if(this.route.snapshot.paramMap.get('id') != undefined){
+            let getid = this.route.snapshot.paramMap.get('id');
+            this.totalData=result.entries[getid];
+            console.log(this.totalData);
+          }else{
+            console.log("No data found");
+          }
+        }else{
+          console.log("No data found")
+        }
+      });
+
   }
 
   ngOnInit() {
-    this.masterAction.fetchMaster();
-    this.sub = this.masterdata$.subscribe((res)=>{
-      if(res){ 
-        let result = res;
-        if(this.route.snapshot.paramMap.get('id') != undefined){
-          let getid = this.route.snapshot.paramMap.get('id');
-          this.totalData=result.entries[getid];
-          console.log(this.totalData);
-        }
-      }
-    });
+   
   }
   bid(){
     console.log("bidded");

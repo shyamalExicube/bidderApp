@@ -7,17 +7,19 @@ import * as firebase from 'firebase'
 import { select } from '@angular-redux/store';
 import { Observable } from 'rxjs';
 import { MasterActions } from 'src/redux/actions/master_actions';
+import { AlertControllerService } from './alert-controller.service';
 
 
 
 
 @Component({
   selector: 'app-root',
-  templateUrl: 'app.component.html'
+  templateUrl: 'app.component.html',
+  // styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  email:"contact@exicube.com";
-  password:"Linkin9*";
+  email:string="contact@exicube.com";
+  password:string="Linkin9*";
   public masterdata:any
   
   @select(['masterData', 'masterdata'])
@@ -27,7 +29,8 @@ export class AppComponent {
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
-    public masterAction:MasterActions
+    public masterAction:MasterActions,
+    public toastControl:AlertControllerService
   ) {
     this.initializeApp();
      this.authentication()
@@ -56,7 +59,7 @@ export class AppComponent {
             });
           }
         }).catch((error)=>{
-          alert(error.message);
+          this.toastControl.openToast(error.message,1500)
         });
       }
     })

@@ -6,13 +6,17 @@ import { Observable } from 'rxjs';
 import { KeywordActions } from 'src/redux/actions/keywords_actions';
 import * as firebase from 'firebase'
 import { MasterActions } from 'src/redux/actions/master_actions';
+import { AlertControllerService } from '../alert-controller.service';
+
+
+
 @Component({
   selector: 'app-tab2',
   templateUrl: 'tab2.page.html',
   styleUrls: ['tab2.page.scss']
 })
 export class Tab2Page {
-  demo: string = "camera"
+  demo: string = "Positive"
   public keywords:any;
   public negativeKeys:any;
   public negativeInputs:any=[]
@@ -22,6 +26,7 @@ export class Tab2Page {
   public totalData:any
   public positivekeywords:any
   public negativekeywords:any
+  // public segmentValue:any
 
 
   @select(['keywordData', 'keyworddata'])
@@ -33,29 +38,9 @@ export class Tab2Page {
   constructor(
     public modalController: ModalController,
     public keywordActions:KeywordActions,
-    public masterAction:MasterActions) {
-    // this.keywordActions.fetchKeyword();
-  //   let sub = this.keyworddata$.subscribe((res)=>{
-  //    if(res){ 
-  //      this.keywords=res;
-  //      console.log(this.keywords.negativeKewwords);
-  //      this.negativeKeys=this.keywords.negativeKewwords;
-  //      for(let key in this.negativeKeys){
-  //        console.log(this.negativeKeys[key]);
-  //        this.negativeKeys[key].id=key
-  //         this.negativeInputs.push(this.negativeKeys[key]);
-  //       console.log(this.negativeInputs); 
-  //           }
-  //           console.log(this.keywords.positiveKewwords);
-  //           this.positiveKeys=this.keywords.positiveKewwords
-  //           for(let key in this.positiveKeys){
-  //            console.log(this.positiveKeys[key]);
-  //            this.positiveKeys[key].id=key
-  //            this.positiveInputs.push(this.positiveKeys[key]);
-  //            console.log(this.positiveInputs); 
-  //                }
-  //    }
-  //  });
+    public masterAction:MasterActions,
+    public toastControl:AlertControllerService) {
+      console.log(this.demo)
 
   this.masterAction.fetchMaster();
   let sub = this.masterdata$.subscribe((res)=>{
@@ -74,26 +59,29 @@ export class Tab2Page {
 
   segmentChanged(ev: any) {
     console.log('Segment changed', ev);
+    console.log(ev.detail.value);
+    this.demo=ev.detail.value
   }
 
   async presentModal() {
     const modal = await this.modalController.create({
       component: AddOptionsPage,
-      componentProps: { value: 123 }
+      componentProps: {value:this.demo}
     });
     return await modal.present();
   }
   deleteNegKey(i){
     console.log(this.negativeInputs[i]);
     firebase.database().ref('/keywords/' +`/negative/` +i+ '/').remove().then(()=>{
-      alert("successfully deleted");
+      this.toastControl.openToast("Successfully Negative Keyword Deleted",1500);
+      
     });
   }
   deletePosKey(i){
     console.log(i);
     console.log(this.positiveInputs[i]);
     firebase.database().ref('/keywords/' +`/positive/` +i+ `/`).remove().then(()=>{
-      alert("Successfully Deleted");
+      this.toastControl.openToast("Successfully Positive Keyword Deleted",1500);
     });
   }
 

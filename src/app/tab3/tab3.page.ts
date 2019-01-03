@@ -14,7 +14,8 @@ export class Tab3Page {
   public favoriteData:any;
   public myData:any;
   public sendData:any;
-  public myFav:any=[]
+  public myFav:any;
+  public dataFound:boolean=true
   @select(['favoriteData', 'favoritedata'])
   readonly favoritedata$: Observable<any>;
 
@@ -34,23 +35,32 @@ export class Tab3Page {
 
     //   }
     // });
-
+    this.favorites();
+  }
+  favorites(){
     this.masterActions.fetchMaster();
-     let sub = this.masterdata$.subscribe((res)=>{
-      if(res){ 
-        console.log(res);
-        this.favoriteData=res.favorites;
-        console.log(this.favoriteData);
+    let sub = this.masterdata$.subscribe((res)=>{
+     if(res){ 
+       console.log(res);
+      this.dataFound=true;
+       console.log(res);
+       this.favoriteData=res.favorites;
+       console.log(this.favoriteData);
+       if(this.favoriteData){
+         this.myFav=[];
         for(let key in this.favoriteData){
           console.log(key);
           console.log(this.favoriteData[key]);
            this.myFav.push(this.favoriteData[key]);
-          // console.log(this.myFav);
+          console.log(this.myFav);
         }
-        
-
-      }
-    });
+       }else{
+         this.dataFound=false
+         console.log("There is no Fav data");
+       }
+       
+     }
+   });
   }
 
   goDetails(i){

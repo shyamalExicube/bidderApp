@@ -14,6 +14,10 @@ import { HttpModule } from '@angular/http';
 import { StoreModule } from 'src/redux/store/all_module'
 import { AddOptionsPageModule } from './add-options/add-options.module';
 import * as firebase from 'firebase'
+import { HttpClientModule } from '@angular/common/http';
+import { TemplateEditPageModule } from './template-edit/template-edit.module';
+import { AddtemplatePageModule } from './addtemplate/addtemplate.module';
+// import { HttpClientModule } from '@angular/common/http'; 
 
 
 
@@ -50,7 +54,10 @@ firebase.initializeApp(config);
     NgReduxModule,
     StoreModule,
     HttpModule,
-    AddOptionsPageModule
+    AddOptionsPageModule,
+    HttpClientModule,
+    TemplateEditPageModule,
+    AddtemplatePageModule
   ],
   providers: [
     StatusBar,
