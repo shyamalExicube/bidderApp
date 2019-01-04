@@ -11,9 +11,10 @@ import { select } from '@angular-redux/store';
 })
 export class DetailsPage implements OnInit {
   public projectDetails:any;
-  public totalData:any;
+  public totalData:any=[];
   public paramdata:any;
-  public sub
+  public sub:any;
+  public image:boolean=true
 
   @select(['masterData', 'masterdata'])
   readonly masterdata$: Observable<any>;

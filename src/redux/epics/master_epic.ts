@@ -17,7 +17,7 @@ import { MasterActions } from '../actions/master_actions';
 
 @Injectable()   
 export class MasterEpics {
-    public projectData:any
+    // public projectData:any
   constructor(private http: Http ,public masteraction:MasterActions) {}
 
  //http://www.mocky.io/v2/5ad9e9312f00005e00cfe010
@@ -29,9 +29,9 @@ export class MasterEpics {
         const projectsList=firebase.database().ref();
         projectsList.on('value',snapProjects=>{
           if(snapProjects.val()){
-            this.projectData=snapProjects.val();
-            this.masteraction.MasterFetchSuccess(this.projectData);
-            console.log(this.projectData);
+            let projectData=snapProjects.val();
+            this.masteraction.MasterFetchSuccess(projectData);
+            console.log(projectData);
           }else{
             this.masteraction.MasterFetchFailed("API error/ Network error"); 
           }

@@ -55,8 +55,6 @@ export class Tab2Page {
   });
 
   }
-
-
   segmentChanged(ev: any) {
     console.log('Segment changed', ev);
     console.log(ev.detail.value);

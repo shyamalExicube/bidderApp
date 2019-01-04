@@ -62,6 +62,7 @@ export class AddtemplatePage implements OnInit {
           name:this.name,
           description:this.description
         }).then(()=>{
+          this.toastControl.openToast("Successfully Template added",1500);
           this.modalCtrl.dismiss();
         })
       }

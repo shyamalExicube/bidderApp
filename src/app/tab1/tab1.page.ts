@@ -37,23 +37,19 @@ export class Tab1Page {
     public masterAction:MasterActions,
     public toastControl:AlertControllerService
     ){ 
-    //  this.profileActions.fetchProfile();
-    //  let sub = this.profiledata$.subscribe((res)=>{
-    //   if(res){ 
-    //     console.log(res);
-    //     this.projectData=res;
-    //   }
-    // });
-
     this.masterAction.fetchMaster();
     let sub = this.masterdata$.subscribe((res)=>{
       if(res){ 
+        this.totalData=[];
         console.log(res);  
-        this.totalData=res.entries
+        this.totalData=res.entries;
         console.log(this.totalData);
       }
     });
 
+  }
+  mainData(){
+    
   }
 
   goDetails(i){
@@ -66,7 +62,6 @@ export class Tab1Page {
       this.toastControl.openToast("you have alrady added to fav",1500);
     }else{
       data.fav = true;
-      // this.totalData[i].fav = true;
       console.log("added fav"+data);
       firebase.database().ref(`/favorites/`).push(data).then(()=>{
         firebase.database().ref(`/entries/` +i+`/`).update({
