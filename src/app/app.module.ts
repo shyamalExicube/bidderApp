@@ -34,12 +34,12 @@ import { AddtemplatePageModule } from './addtemplate/addtemplate.module';
 // firebase.initializeApp(config);
 
 var config = {
-  apiKey: "AIzaSyALML5rY-J9_ZR80Ut63yOWUC04jwRACsk",
-  authDomain: "atbidder.firebaseapp.com",
-  databaseURL: "https://atbidder.firebaseio.com",
-  projectId: "atbidder",
-  storageBucket: "atbidder.appspot.com",
-  messagingSenderId: "459901499641"
+  apiKey: "AIzaSyCFw6romw9UJL88CwF3GHzvaZ1Xglf5bo0",
+  authDomain: "comingprojects-7a21b.firebaseapp.com",
+  databaseURL: "https://comingprojects-7a21b.firebaseio.com",
+  projectId: "comingprojects-7a21b",
+  storageBucket: "comingprojects-7a21b.appspot.com",
+  messagingSenderId: "244910667822"
 };
 firebase.initializeApp(config);
 

@@ -72,17 +72,17 @@ export class Tab2Page {
   }
   deleteNegKey(i){
     console.log(this.negativeInputs[i]);
-    firebase.database().ref('/keywords/' +`/negative/` +i+ '/').remove().then(()=>{
-      this.toastControl.openToast("Successfully Negative Keyword Deleted",1500);
-      
-    });
+    this.negativekeywords.splice(i,1);
+    firebase.database().ref(`/keywords/negative/`).set(this.negativekeywords).then(()=>{
+        this.toastControl.openToast("Successfully Negative Keyword Deleted",1500);
+      });
   }
   deletePosKey(i){
     console.log(i);
+    this.positivekeywords.splice(i,1)
     console.log(this.positiveInputs[i]);
-    firebase.database().ref('/keywords/' +`/positive/` +i+ `/`).remove().then(()=>{
+    firebase.database().ref('/keywords/positive/').set(this.positivekeywords).then(()=>{
       this.toastControl.openToast("Successfully Positive Keyword Deleted",1500);
     });
   }
-
 }

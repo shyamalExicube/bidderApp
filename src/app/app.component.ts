@@ -18,8 +18,8 @@ import { AlertControllerService } from './alert-controller.service';
   // styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  email:string="contact@exicube.com";
-  password:string="Linkin9*";
+  email:string="admin@admin.com";
+  password:string="123456";
   public masterdata:any
   
   @select(['masterData', 'masterdata'])
