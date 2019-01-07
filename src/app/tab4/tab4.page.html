@@ -8,23 +8,28 @@
 
 <!-- List of Text Items -->
 <ion-list>
-    <!-- <ion-item *ngFor="let data of templateData;let i=index">
-      <h1>{{data.name}}</h1>
-        <p>{{data.description}}</p>
-    </ion-item> -->
-
-    <ion-card *ngFor="let data of templateData;let i=index">
-      <ion-card-header>
-        <ion-card-subtitle>{{data.name}}</ion-card-subtitle>
-        <ion-card-title>{{data.description}}</ion-card-title>
-      </ion-card-header>
-      <ion-button fill="outline" slot="end" (click)="edit(data)">Edit</ion-button>
-    </ion-card>
-    
+      <ion-item *ngFor="let data of templateData; let i=index">
+          <ion-avatar slot="start" (click)="goDetails(i)">
+              <img src="assets/images/template.png"/>
+          </ion-avatar>
+          <ion-label>
+              <h2 style="font-weight: bold;font-size: 15px">{{data.name}}</h2>
+              <p>{{data.description}}</p>
+          </ion-label>
+          <ion-icon name="color-filter" style="color:cornflowerblue" (click)="edit(data)"></ion-icon>
+      </ion-item>
   </ion-list>
+  
+  
+  
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
       <ion-fab-button (click)="presentModal()">
-        <ion-icon name="add"></ion-icon>
+      <ion-icon name="add"></ion-icon>
       </ion-fab-button>
   </ion-fab>
-</ion-content>
+  </ion-content>
+
+
+
+
+

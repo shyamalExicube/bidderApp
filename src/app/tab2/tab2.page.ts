@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { AddOptionsPage } from '../add-options/add-options.page';
 import { select } from '@angular-redux/store';
@@ -13,7 +13,8 @@ import { AlertControllerService } from '../alert-controller.service';
 @Component({
   selector: 'app-tab2',
   templateUrl: 'tab2.page.html',
-  styleUrls: ['tab2.page.scss']
+  styleUrls: ['tab2.page.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class Tab2Page {
   demo: string = "Positive"
@@ -68,14 +69,14 @@ export class Tab2Page {
     });
     return await modal.present();
   }
-  deleteNegKey(i){
+  deleteNegKey(i:any){
     console.log(this.negativeInputs[i]);
     this.negativekeywords.splice(i,1);
     firebase.database().ref(`/keywords/negative/`).set(this.negativekeywords).then(()=>{
         this.toastControl.openToast("Successfully Negative Keyword Deleted",1500);
       });
   }
-  deletePosKey(i){
+  deletePosKey(i:any){
     console.log(i);
     this.positivekeywords.splice(i,1)
     console.log(this.positiveInputs[i]);

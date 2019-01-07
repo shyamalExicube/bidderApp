@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from '@ionic/angular';
+import { NavController, AlertController, ModalController } from '@ionic/angular';
 import { DetailsPage } from '../details/details.page';
 import { RouterModule, Router } from '@angular/router';
 import * as firebase from 'firebase'
@@ -8,6 +8,7 @@ import { select } from '@angular-redux/store';
 import { Observable } from 'rxjs/Observable';
 import { MasterActions } from 'src/redux/actions/master_actions';
 import { AlertControllerService } from '../alert-controller.service';
+import { DeleteProjectPage } from '../delete-project/delete-project.page';
 
 @Component({
   selector: 'app-tab1',
@@ -27,7 +28,8 @@ export class Tab1Page {
   public myData:any;
   // public favo:boolean=true;
   public sendData:any;
-  public totalData:any
+  public totalData:any;
+  public passValues:any
 
   constructor(
     private router: Router, 
@@ -35,7 +37,9 @@ export class Tab1Page {
     public navCtrl:NavController,
     public profileActions:ProfileActions,
     public masterAction:MasterActions,
-    public toastControl:AlertControllerService
+    public toastControl:AlertControllerService,
+    public alertController:AlertController,
+    public modalController:ModalController
     ){ 
     this.masterAction.fetchMaster();
     let sub = this.masterdata$.subscribe((res)=>{
@@ -52,12 +56,12 @@ export class Tab1Page {
     
   }
 
-  goDetails(i){
+  goDetails(i:any){
     console.log(i);
     this.nav.navigateForward('/details/'+i);
   }
 
-  addFav(data,i){
+  addFav(data:any,i:any){
     if(data.fav == true){
       this.toastControl.openToast("you have alrady added to fav",1500);
     }else{
@@ -71,5 +75,42 @@ export class Tab1Page {
       });
     }
 }
+async delete(data:any,i:any){
+  console.log(data);
+  const alert = await this.alertController.create({
+    // header: 'Confirm!',
+    message: "Want to delete this Project?",
+    buttons: [
+      {
+        text: 'Cancel',
+        role: 'cancel',
+        cssClass: 'secondary',
+        handler: (blah) => {
+          console.log('Confirm Cancel: blah');
+        }
+      }, {
+        text: 'Okay',
+        handler: () => {
+          this.totalData.splice(i,1);
+          firebase.database().ref('/entries/').set(this.totalData).then(()=>{
+          this.toastControl.openToast("Successfully profile  Deleted",1500);
+         });
+        }
+      }
+    ]
+  });
+  await alert.present();
+
+}
+async multiDelete(i:any){
+  console.log(i);
+  console.log(this.totalData[i]);
+  this.passValues={index:i,checked:true}
+  const modal = await this.modalController.create({
+    component: DeleteProjectPage,
+    componentProps: { value: this.passValues}
+  });
+  return await modal.present();
 }
 
+}

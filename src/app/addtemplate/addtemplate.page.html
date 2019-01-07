@@ -4,7 +4,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
+<!-- <ion-content padding>
     <ion-card>
         <ion-card-header>
           <button ion-button clear class="closeModal" (click)="close()">&times;</button>
@@ -19,4 +19,28 @@
             <ion-button (click)="addTemplate()">Update</ion-button>
         </ion-card-content>
       </ion-card>
+</ion-content> -->
+
+
+<ion-content class="loanHistContent">
+  <div class="mainDiv">
+    <div class="childDiv">
+      <ion-card>
+        <ion-card-header>
+          Add Template
+          <button ion-button clear class="closeModal" (click)="close()">&times;</button>
+        </ion-card-header>
+        <ion-card-content>
+            <ion-item>
+              <ion-input [(ngModel)]="name" placeholder="Template name"></ion-input>
+            </ion-item>
+            <ion-item>
+              <!-- <ion-input [(ngModel)]="description"></ion-input> -->
+              <ion-textarea rows="12" [(ngModel)]="description" placeholder="Enter a description"></ion-textarea>
+          </ion-item>
+          <ion-button (click)="addTemplate()" placeholder="Description">Update</ion-button>
+        </ion-card-content>
+      </ion-card>
+    </div>
+  </div>
 </ion-content>

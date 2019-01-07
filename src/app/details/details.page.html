@@ -9,12 +9,16 @@
 
 <ion-content padding class="content">
   <ion-card>
+   
+       
       <ion-card-header>
-        <img *ngIf="totalData.source == 'Upwork'" src="assets/images/upwork1.png"/>
-        <img *ngIf="totalData.source == 'Freelancer'" src="assets/images/freelancer.png"/>
-
-        <ion-card-title>{{totalData.title}}</ion-card-title>
+                <img *ngIf="totalData.source == 'Upwork'" src="assets/images/upwork1.png"/>
+                <img *ngIf="totalData.source == 'Freelancer'" src="assets/images/freelancer.png"/>
+                <ion-card-title>{{totalData.title}}</ion-card-title>
       </ion-card-header>
+      <ion-item style="direction: rtl">
+            <ion-icon name="information-circle" style="zoom:2.0" (click)="seeDetails()"></ion-icon>
+      </ion-item>
     
       <ion-card-content>
         <div [innerHTML]="description"></div>

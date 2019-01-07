@@ -1,1 +1,14 @@
-
+app-tab2{
+    ion-toolbar{
+        ion-segment{
+            ion-segment-button{
+                font-size: 16px;
+                text-transform: initial;
+            }
+            .segment-button-checked{
+                background: #408bff !important;
+                color: #fff !important;
+            }
+        }
+    }
+}

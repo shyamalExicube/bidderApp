@@ -33,7 +33,7 @@ export class TemplateEditPage implements OnInit {
   }
   update(){
     if(this.desc == '' || this.desc == undefined || this.desc == null){
-      this.toastControl.openToast("Yhis field can not be blanked",1500)
+      this.toastControl.openToast("This field can not be blanked",1500)
 
     }else{
       firebase.database().ref(`/bid_template/` +this.templateData.id+ `/`).update({

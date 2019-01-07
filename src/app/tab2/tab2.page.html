@@ -1,14 +1,11 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>
-      Filter
-    </ion-title>
     <ion-segment [(ngModel)]="demo" (ionChange)="segmentChanged($event)">
         <ion-segment-button value="Positive">
-          <h1>Positives</h1>
+          Positive
         </ion-segment-button>
         <ion-segment-button value="Negative">
-          <h1>Negatives</h1>
+          Negative
         </ion-segment-button>
       </ion-segment>
   </ion-toolbar>

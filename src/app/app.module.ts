@@ -17,21 +17,14 @@ import * as firebase from 'firebase'
 import { HttpClientModule } from '@angular/common/http';
 import { TemplateEditPageModule } from './template-edit/template-edit.module';
 import { AddtemplatePageModule } from './addtemplate/addtemplate.module';
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx'
+import { DeleteProjectPageModule } from './delete-project/delete-project.module';
+
 // import { HttpClientModule } from '@angular/common/http'; 
 
 
 
 
-
-// var config = {
-//   apiKey: "AIzaSyCFw6romw9UJL88CwF3GHzvaZ1Xglf5bo0",
-//   authDomain: "comingprojects-7a21b.firebaseapp.com",
-//   databaseURL: "https://comingprojects-7a21b.firebaseio.com",
-//   projectId: "comingprojects-7a21b",
-//   storageBucket: "comingprojects-7a21b.appspot.com",
-//   messagingSenderId: "244910667822"
-// };
-// firebase.initializeApp(config);
 
 var config = {
   apiKey: "AIzaSyCFw6romw9UJL88CwF3GHzvaZ1Xglf5bo0",
@@ -42,6 +35,16 @@ var config = {
   messagingSenderId: "244910667822"
 };
 firebase.initializeApp(config);
+
+// var config = {
+//   apiKey: "AIzaSyCFw6romw9UJL88CwF3GHzvaZ1Xglf5bo0",
+//   authDomain: "comingprojects-7a21b.firebaseapp.com",
+//   databaseURL: "https://comingprojects-7a21b.firebaseio.com",
+//   projectId: "comingprojects-7a21b",
+//   storageBucket: "comingprojects-7a21b.appspot.com",
+//   messagingSenderId: "244910667822"
+// };
+// firebase.initializeApp(config);
 
 
 @NgModule({
@@ -57,11 +60,13 @@ firebase.initializeApp(config);
     AddOptionsPageModule,
     HttpClientModule,
     TemplateEditPageModule,
-    AddtemplatePageModule
+    AddtemplatePageModule,
+    DeleteProjectPageModule
   ],
   providers: [
     StatusBar,
     SplashScreen,
+    InAppBrowser,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]
