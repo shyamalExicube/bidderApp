@@ -61,7 +61,6 @@ export class DeleteProjectPage implements OnInit {
       } 
     }
 
-
   }
 
 }
