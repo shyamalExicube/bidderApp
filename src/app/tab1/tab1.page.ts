@@ -47,6 +47,9 @@ export class Tab1Page {
         this.totalData=[];
         console.log(res);  
         this.totalData=res.entries;
+        // for(var i = 0; i<this.totalData.length;i++){
+        //   this.totalData[i].projectId = i
+        // }
         console.log(this.totalData);
       }
     });
@@ -111,6 +114,12 @@ async multiDelete(i:any){
     componentProps: { value: this.passValues}
   });
   return await modal.present();
+  const { data } = await modal.onDidDismiss();
+  console.log(data);
+  if(data == true){
+    this.masterAction.fetchMaster();
+    
+  }
 }
 
 }

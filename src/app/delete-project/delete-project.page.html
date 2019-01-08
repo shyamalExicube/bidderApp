@@ -1,5 +1,8 @@
 <ion-header>
     <ion-toolbar>
+         <ion-buttons slot="start">
+              <ion-back-button></ion-back-button>
+         </ion-buttons>
       <ion-title>
        List
       </ion-title>
@@ -10,8 +13,8 @@
   <ion-content>
   
         <ion-list>
-          <ion-item *ngFor="let data of newCheckedData; let i=index">
-              <ion-checkbox *ngIf="data.check == true" checked="true"></ion-checkbox>
+          <ion-item *ngFor="let data of totalData; let i=index">
+              <ion-checkbox *ngIf="data.check == true" checked="true" (click)="addToDelete(i)"></ion-checkbox>
               <ion-checkbox *ngIf="data.check != true" (click)="addToDelete(i)"></ion-checkbox>
             <ion-avatar>
               <img *ngIf="data.source == 'Upwork'" src="assets/images/upwork1.png"/>
