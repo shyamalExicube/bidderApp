@@ -6,6 +6,7 @@ import * as firebase from 'firebase'
 import { ModalController } from '@ionic/angular';
 import { TemplateEditPage } from '../template-edit/template-edit.page';
 import { AddtemplatePage } from '../addtemplate/addtemplate.page';
+import { NavController } from '@ionic/angular/dist/providers/nav-controller';
 
 @Component({
   selector: 'app-tab4',
@@ -23,7 +24,8 @@ export class Tab4Page implements OnInit {
 
   constructor(
     public masterActions:MasterActions,
-    public modalController:ModalController
+    public modalController:ModalController,
+    public nav:NavController
     ) { 
     this.masterActions.fetchMaster();
     let sub = this.masterdata$.subscribe((res)=>{
@@ -67,6 +69,7 @@ export class Tab4Page implements OnInit {
     return await modal.present();
   }
   goDetails(i:any){
+    this.nav.navigateForward('/templatedetails/'+i);
 
   }
 }

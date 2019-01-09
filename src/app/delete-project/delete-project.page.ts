@@ -43,17 +43,18 @@ export class DeleteProjectPage implements OnInit {
     if(this.totalData[i].check == true){
       for(var k=0;k<this.newCheckedData.length;k++){
         console.log(this.newCheckedData[k]);
-        if(this.newCheckedData[k]== i){
+        if(this.newCheckedData[k] == i){
           this.found=true;
+          if(this.found == true){
+            this.totalData[i].check=false;
+            this.newCheckedData.splice(k,1);
+            console.log(this.newCheckedData);
+          }else{
+            console.log("data not found");
+          }
         }
       }
-      if(this.found == true){
-          this.totalData[i].check=false;
-          this.newCheckedData.splice(this.newCheckedData[k],1);
-          console.log(this.newCheckedData);
-      }else{
-        console.log("data not found");
-      }
+      
       console.log(this.totalData[i]);
     }
     else{
@@ -62,6 +63,15 @@ export class DeleteProjectPage implements OnInit {
     }  
     console.log(this.newCheckedData);
     console.log(this.totalData[i]);
+  }
+  uncheck(i,k) {
+    if(this.found == true){
+      this.totalData[i].check=false;
+      this.newCheckedData.splice(k,1);
+      console.log(this.newCheckedData);
+    }else{
+      console.log("data not found");
+    }
   }
 
   ngOnInit() {
