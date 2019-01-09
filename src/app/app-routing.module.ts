@@ -8,7 +8,8 @@ const routes: Routes = [
   { path: 'add-options', loadChildren: './add-options/add-options.module#AddOptionsPageModule' },
   { path: 'template-edit', loadChildren: './template-edit/template-edit.module#TemplateEditPageModule' },
   { path: 'addtemplate', loadChildren: './addtemplate/addtemplate.module#AddtemplatePageModule' },
-  { path: 'delete-project', loadChildren: './delete-project/delete-project.module#DeleteProjectPageModule' }
+  { path: 'delete-project', loadChildren: './delete-project/delete-project.module#DeleteProjectPageModule' },
+  { path: 'templatedetails/:id', loadChildren: './templatedetails/templatedetails.module#TemplatedetailsPageModule' }
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

@@ -78,33 +78,35 @@ export class Tab1Page {
       });
     }
 }
-async delete(data:any,i:any){
-  console.log(data);
-  const alert = await this.alertController.create({
-    // header: 'Confirm!',
-    message: "Want to delete this Project?",
-    buttons: [
-      {
-        text: 'Cancel',
-        role: 'cancel',
-        cssClass: 'secondary',
-        handler: (blah) => {
-          console.log('Confirm Cancel: blah');
-        }
-      }, {
-        text: 'Okay',
-        handler: () => {
-          this.totalData.splice(i,1);
-          firebase.database().ref('/entries/').set(this.totalData).then(()=>{
-          this.toastControl.openToast("Successfully profile  Deleted",1500);
-         });
-        }
-      }
-    ]
-  });
-  await alert.present();
 
-}
+// async delete(data:any,i:any){
+//   console.log(data);
+//   const alert = await this.alertController.create({
+//     // header: 'Confirm!',
+//     message: "Want to delete this Project?",
+//     buttons: [
+//       {
+//         text: 'Cancel',
+//         role: 'cancel',
+//         cssClass: 'secondary',
+//         handler: (blah) => {
+//           console.log('Confirm Cancel: blah');
+//         }
+//       }, {
+//         text: 'Okay',
+//         handler: () => {
+//           this.totalData.splice(i,1);
+//           firebase.database().ref('/entries/').set(this.totalData).then(()=>{
+//           this.toastControl.openToast("Successfully profile  Deleted",1500);
+//          });
+//         }
+//       }
+//     ]
+//   });
+//   await alert.present();
+
+// }
+
 async multiDelete(i:any){
   console.log(i);
   console.log(this.totalData[i]);

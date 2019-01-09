@@ -17,7 +17,8 @@ export class DeleteProjectPage implements OnInit {
   public data:any;
   public newCheckedData:any=[]
   public deleteItems:any;
-  public index:any
+  public index:any;
+  public found:boolean=true;
   @select(['masterData', 'masterdata'])
   readonly masterdata$: Observable<any>;
 
@@ -40,26 +41,36 @@ export class DeleteProjectPage implements OnInit {
 
   addToDelete(i:any){
     if(this.totalData[i].check == true){
-      this.totalData[i].check=false;
-      var newIndex=this.newCheckedData.sort(function(a,b){return a-b})
-      for(var k=newIndex.length-1; k>=0; k--){
-          this.totalData.splice(newIndex[k],1)
+      for(var k=0;k<this.newCheckedData.length;k++){
+        console.log(this.newCheckedData[k]);
+        if(this.newCheckedData[k]== i){
+          this.found=true;
+        }
       }
-      // this.newCheckedData.splice(i,1);
+      if(this.found == true){
+          this.totalData[i].check=false;
+          this.newCheckedData.splice(this.newCheckedData[k],1);
+          console.log(this.newCheckedData);
+      }else{
+        console.log("data not found");
+      }
       console.log(this.totalData[i]);
-      // console.log(this.newCheckedData);
-    }else{
+    }
+    else{
       this.totalData[i].check=true;
       this.newCheckedData.push(i);
-    }
-    console.log(this.totalData);
+    }  
+    console.log(this.newCheckedData);
+    console.log(this.totalData[i]);
   }
 
   ngOnInit() {
   }
   delete(){
+    alert(this.newCheckedData);
+    console.log(this.newCheckedData);
     var removeFromIndex =this.newCheckedData.sort(function(a, b){return a - b});
-    
+      console.log(removeFromIndex);
     console.log(removeFromIndex.length);
     console.log(this.totalData.length)
     var cal = (this.totalData.length) - (this.newCheckedData.length)

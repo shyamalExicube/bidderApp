@@ -45,7 +45,7 @@ export class Tab4Page implements OnInit {
    });
 
   }
-  async edit(data){
+  async edit(data:any){
     console.log(data);
 
     const modal = await this.modalController.create({
@@ -65,5 +65,8 @@ export class Tab4Page implements OnInit {
       cssClass : "modalPage"
     });
     return await modal.present();
+  }
+  goDetails(i:any){
+
   }
 }
