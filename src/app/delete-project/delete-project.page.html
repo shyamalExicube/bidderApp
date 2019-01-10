@@ -1,14 +1,26 @@
-<ion-header>
+<!-- <ion-header>
     <ion-toolbar>
          <ion-buttons slot="start">
               <ion-back-button></ion-back-button>
          </ion-buttons>
       <ion-title>
        List
+       <ion-icon name="trash" (click)="delete()"></ion-icon>
       </ion-title>
-      <ion-icon name="trash" (click)="delete()"></ion-icon>
     </ion-toolbar>
-  </ion-header>
+  </ion-header> -->
+
+  <ion-header>
+      <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-icon name="arrow-round-back" class="backButton" (click)="closePage()"></ion-icon>
+        </ion-buttons>
+        <ion-title>List</ion-title>
+        <ion-buttons slot="end">
+            <ion-icon name="trash" class="deleteBtn" (click)="delete()"></ion-icon>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
   
   <ion-content>
   

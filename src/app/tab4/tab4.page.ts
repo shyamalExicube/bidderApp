@@ -69,7 +69,7 @@ export class Tab4Page implements OnInit {
     return await modal.present();
   }
   goDetails(i:any){
+    console.log(i);
     this.nav.navigateForward('/templatedetails/'+i);
-
   }
 }

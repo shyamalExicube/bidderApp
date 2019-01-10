@@ -15,9 +15,15 @@
     Android version changes to - 6.4.0
 */
 
-/* 2. Ionic Icon issue - (Icon not showing in App) 
+/* 3. Ionic Icon issue - (Icon not showing in App) 
 
 *** SOLUTION =>
     cordova-plugin-ionic-webview plugin version changes to -
     cordova-plugin-ionic-webview@2.2.0
 */
+
+ /*4. IOS build issue-(Export failed)
+ *** solution =>
+ Currently cordova-ios is not compatible with Xcode 10
+ Build command => ionic cordova build ios -- --buildFlag="-UseModernBuildSystem=0"
+ */

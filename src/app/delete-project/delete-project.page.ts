@@ -45,13 +45,7 @@ export class DeleteProjectPage implements OnInit {
         console.log(this.newCheckedData[k]);
         if(this.newCheckedData[k] == i){
           this.found=true;
-          if(this.found == true){
-            this.totalData[i].check=false;
-            this.newCheckedData.splice(k,1);
-            console.log(this.newCheckedData);
-          }else{
-            console.log("data not found");
-          }
+         this.deleteTemp(i,k);
         }
       }
       
@@ -64,43 +58,59 @@ export class DeleteProjectPage implements OnInit {
     console.log(this.newCheckedData);
     console.log(this.totalData[i]);
   }
-  uncheck(i,k) {
-    if(this.found == true){
-      this.totalData[i].check=false;
-      this.newCheckedData.splice(k,1);
-      console.log(this.newCheckedData);
-    }else{
-      console.log("data not found");
-    }
-  }
+  // uncheck(i,k) {
+  //   if(this.found == true){
+  //     this.totalData[i].check=false;
+  //     this.newCheckedData.splice(k,1);
+  //     console.log(this.newCheckedData);
+  //   }else{
+  //     console.log("data not found");
+  //   }
+  // }
 
   ngOnInit() {
   }
   delete(){
-    alert(this.newCheckedData);
-    console.log(this.newCheckedData);
     var removeFromIndex =this.newCheckedData.sort(function(a, b){return a - b});
       console.log(removeFromIndex);
     console.log(removeFromIndex.length);
     console.log(this.totalData.length)
     var cal = (this.totalData.length) - (this.newCheckedData.length)
     console.log(cal)
-    alert(removeFromIndex)    
+    // alert(removeFromIndex)    
     
-    for (var i = removeFromIndex.length -1; i >= 0; i--)
-    this.totalData.splice(removeFromIndex[i],1);
-       
-        if(cal == this.totalData.length ){
+    for (var i = (removeFromIndex.length -1); i >= 0; i--){
+      this.totalData.splice(removeFromIndex[i],1);
+       if(cal == this.totalData.length ){
           console.log(this.totalData);
           firebase.database().ref('/entries/').set(this.totalData).then(()=>{
+            firebase.database().ref(`/data_count/`).set(this.totalData.length);
             this.toastControl.openToast("Successfully profile  Deleted",1500);
              this.modal.dismiss();
-             this.modal.dismiss({
-              'result': true
-              })
            });
+        }else{
+          this.toastControl.openToast("you have not selected any option",1500);
         }
+    }
+  
+       
+       
         
+     }
+     deleteTemp(i:any,k:any){
+       console.log(i);
+       console.log(k);
+      if(this.found == true){
+        this.totalData[i].check=false;
+        this.newCheckedData.splice(k,1);
+        console.log(this.newCheckedData);
+      }else{
+        console.log("data not found");
+      }
+
+     }
+     closePage(){
+       this.modal.dismiss()
      }
      
     

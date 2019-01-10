@@ -39,6 +39,7 @@ export class AppComponent {
     firebase.auth().onAuthStateChanged((user)=>{
       if(user){
           // alert("found");
+          
           this.masterAction.fetchMaster();
             let sub = this.masterdata$.subscribe((res)=>{
               if(res){ 
