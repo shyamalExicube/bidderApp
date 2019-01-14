@@ -19,6 +19,8 @@ import { TemplateEditPageModule } from './template-edit/template-edit.module';
 import { AddtemplatePageModule } from './addtemplate/addtemplate.module';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx'
 import { DeleteProjectPageModule } from './delete-project/delete-project.module';
+import { Firebase } from '@ionic-native/firebase/ngx';
+import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 
 // import { HttpClientModule } from '@angular/common/http'; 
 
@@ -67,6 +69,8 @@ firebase.initializeApp(config);
     StatusBar,
     SplashScreen,
     InAppBrowser,
+    Firebase,
+    LocalNotifications,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]
