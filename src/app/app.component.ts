@@ -23,7 +23,8 @@ export class AppComponent {
   email:string="admin@admin.com";
   password:string="123456";
   public masterdata:any;
-  public msg:any
+  public msg:any;
+  public mytopic:any
   
   @select(['masterData', 'masterdata'])
   readonly masterdata$: Observable<any>;
@@ -47,8 +48,6 @@ export class AppComponent {
   async authentication(){
     firebase.auth().onAuthStateChanged((user)=>{
       if(user){
-          // alert("found");
-          
           this.masterAction.fetchMaster();
             let sub = this.masterdata$.subscribe((res)=>{
               if(res){ 
@@ -59,14 +58,16 @@ export class AppComponent {
 
             if(this.platform.is('ios')){
               this.cordovaFirebase.grantPermission();
-              this.localNotifications.requestPermission();
+              // this.localNotifications.requestPermission();
             }
             this.cordovaFirebase.getToken()
               .then(token => {
                 console.log(token);
+                this.mytopic=this.firebase.subscribe("AllPush");
+                console.log(this.mytopic);
                 firebase.database().ref('users/' + user.uid + '/pushToken').set(token);
               })
-              .catch(error =>{
+              .catch(error =>{  
               });
     
           this.cordovaFirebase.onTokenRefresh()
@@ -75,30 +76,31 @@ export class AppComponent {
               });
 
               this.cordovaFirebase.onNotificationOpen().subscribe(async (response)=>{
-                console.log(Response);
-                let data:any = response;
-                this.msg = data.aps.alert.body;
-                if(data.tap) {
-                } else{
-                      if(this.platform.is('ios')){
-                            let alert =await this.alertCtrl.create({
-                            // title: 'Aglni', subTitle:'Notification', message:this.msg, buttons: ['OK']
-                            header: 'Bidder',
-                            subHeader: 'Notification',
-                            message: this.msg,
-                            buttons: ['OK']
-                            });
-                            await alert.present();
-                      }else{
-                            this.localNotifications.schedule({
-                              text: data.body?data.body:"", data: data
-                            });
-                      }
-                }
+                console.log(response);
+                // let data:any = response;
+                // this.msg = data.aps.alert.body;
+                // console.log(this.msg);
+                // if(data.tap) {
+                // } else{
+                //       if(this.platform.is('ios')){
+                //             let alert =await this.alertCtrl.create({
+                //             // title: 'Aglni', subTitle:'Notification', message:this.msg, buttons: ['OK']
+                //             header: 'Bidder',
+                //             subHeader: 'Notification',
+                //             message: this.msg,
+                //             buttons: ['OK']
+                //             });
+                //             await alert.present();
+                //       }else{
+                //             this.localNotifications.schedule({
+                //               text: data.body?data.body:"", data: data
+                //             });
+                //       }
+                // }
              });
-            this.localNotifications.on('schedule').subscribe((response)=>{
-              console.log(response);
-            })
+            // this.localNotifications.on('schedule').subscribe((response)=>{
+            //   console.log(response);
+            // })
 
       }else{
         firebase.auth().signInWithEmailAndPassword(this.email,this.password).then((res)=>{
