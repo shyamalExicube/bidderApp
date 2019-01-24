@@ -24,7 +24,8 @@ export class AppComponent {
   password:string="123456";
   public masterdata:any;
   public msg:any;
-  public mytopic:any
+  public mytopic:any;
+  public currentUser:any
   
   @select(['masterData', 'masterdata'])
   readonly masterdata$: Observable<any>;
@@ -39,15 +40,14 @@ export class AppComponent {
     private firebase: Firebase,
     private localNotifications: LocalNotifications,
     public alertCtrl:AlertController
-    
-
   ) {
     this.initializeApp();
-     this.authentication()
+    this.authentication();
   }
-  async authentication(){
+ authentication(){
     firebase.auth().onAuthStateChanged((user)=>{
       if(user){
+        this.currentUser=user;
           this.masterAction.fetchMaster();
             let sub = this.masterdata$.subscribe((res)=>{
               if(res){ 
@@ -63,44 +63,25 @@ export class AppComponent {
             this.cordovaFirebase.getToken()
               .then(token => {
                 console.log(token);
-                this.mytopic=this.firebase.subscribe("AllPush");
+                
+                this.mytopic=this.cordovaFirebase.subscribe("AllPush");
+                console.log("heeeeee");
                 console.log(this.mytopic);
+                console.log("heeeeee");
                 firebase.database().ref('users/' + user.uid + '/pushToken').set(token);
               })
-              .catch(error =>{  
+              .catch(error =>{    
               });
     
           this.cordovaFirebase.onTokenRefresh()
               .subscribe((token: string) => {
                   firebase.database().ref('users/' + user.uid + '/pushToken').set(token);
               });
-
               this.cordovaFirebase.onNotificationOpen().subscribe(async (response)=>{
+                console.log("how r u");
                 console.log(response);
-                // let data:any = response;
-                // this.msg = data.aps.alert.body;
-                // console.log(this.msg);
-                // if(data.tap) {
-                // } else{
-                //       if(this.platform.is('ios')){
-                //             let alert =await this.alertCtrl.create({
-                //             // title: 'Aglni', subTitle:'Notification', message:this.msg, buttons: ['OK']
-                //             header: 'Bidder',
-                //             subHeader: 'Notification',
-                //             message: this.msg,
-                //             buttons: ['OK']
-                //             });
-                //             await alert.present();
-                //       }else{
-                //             this.localNotifications.schedule({
-                //               text: data.body?data.body:"", data: data
-                //             });
-                //       }
-                // }
+                console.log("how r u");
              });
-            // this.localNotifications.on('schedule').subscribe((response)=>{
-            //   console.log(response);
-            // })
 
       }else{
         firebase.auth().signInWithEmailAndPassword(this.email,this.password).then((res)=>{
@@ -127,4 +108,5 @@ export class AppComponent {
       this.splashScreen.hide();
     });
   }
+
 }

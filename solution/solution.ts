@@ -27,3 +27,19 @@
  Currently cordova-ios is not compatible with Xcode 10
  Build command => ionic cordova build ios -- --buildFlag="-UseModernBuildSystem=0"
  */
+
+ /* Android build issue(Could not find an installed version of Gradle either in Android Studio,
+or on your system to install the gradle wrapper. Please include gradle 
+in your path, or install Android Studio)
+
+
+***solution ==>
+install ==>brew install gradle
+ */
+
+
+ /*
+ Run issue ios
+ ***solution ==>
+ ionic cordova emulate ios --target='iPhone-X, 12.1' -- --buildFlag='-UseModernBuildSystem=0'
+ */

@@ -21,7 +21,6 @@ import { InAppBrowser } from '@ionic-native/in-app-browser/ngx'
 import { DeleteProjectPageModule } from './delete-project/delete-project.module';
 import { Firebase } from '@ionic-native/firebase/ngx';
 import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
-
 // import { HttpClientModule } from '@angular/common/http'; 
 
 
